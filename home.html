@@ -1,0 +1,2453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EduManage - Student Management System</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#172033;
+    display:flex;
+    min-height:100vh;
+    transition:0.3s;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    width:250px;
+    height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+    background:#111827;
+    color:white;
+    padding:25px 18px;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:40px;
+    padding-left:8px;
+}
+
+.logo-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:#4f46e5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.logo-text h2{
+    font-size:20px;
+}
+
+.logo-text span{
+    font-size:11px;
+    color:#9ca3af;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.side-btn{
+    width:100%;
+    border:none;
+    background:transparent;
+    color:#cbd5e1;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+    text-align:left;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    font-size:14px;
+    transition:0.2s;
+}
+
+.side-btn:hover,
+.side-btn.active{
+    background:#3156d9;
+    color:white;
+}
+
+.sidebar-bottom{
+    margin-top:auto;
+}
+
+.admin-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#1f2937;
+    padding:12px;
+    border-radius:12px;
+}
+
+.admin-avatar,
+.profile-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.admin-box small,
+.profile small{
+    display:block;
+    color:#9ca3af;
+    font-size:11px;
+    margin-top:3px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:250px;
+    width:calc(100% - 250px);
+    padding:30px;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.topbar h1{
+    font-size:28px;
+}
+
+.topbar p{
+    color:#64748b;
+    margin-top:6px;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:1px solid #e5e7eb;
+    background:white;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.icon-btn:hover{
+    background:#eef2ff;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.stat-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.blue{
+    background:#dbeafe;
+    color:#2563eb;
+}
+
+.purple{
+    background:#ede9fe;
+    color:#7c3aed;
+}
+
+.green{
+    background:#dcfce7;
+    color:#16a34a;
+}
+
+.orange{
+    background:#ffedd5;
+    color:#ea580c;
+}
+
+.stat-card span{
+    color:#64748b;
+    font-size:12px;
+}
+
+.stat-card h2{
+    margin:4px 0;
+}
+
+.stat-card small{
+    color:#94a3b8;
+    font-size:11px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.dashboard-card,
+.form-card,
+.student-section{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+    margin-top:25px;
+}
+
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick-actions{
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+}
+
+.quick-actions button{
+    border:none;
+    background:#eef2ff;
+    color:#4338ca;
+    padding:12px 18px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:14px;
+    transition:0.2s;
+}
+
+.quick-actions button:hover{
+    background:#4f46e5;
+    color:white;
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title,
+.student-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.section-title p,
+.student-header p{
+    color:#64748b;
+    margin-top:6px;
+}
+
+.title-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:#eef2ff;
+    color:#2563eb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.input-group label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.input-box{
+    display:flex;
+    align-items:center;
+    border:1px solid #dbe1ea;
+    border-radius:9px;
+    padding:0 12px;
+    background:white;
+}
+
+.input-box i{
+    color:#94a3b8;
+}
+
+.input-box input,
+.input-box select{
+    width:100%;
+    padding:13px 10px;
+    border:none;
+    outline:none;
+    background:transparent;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.add-btn{
+    width:100%;
+    margin-top:20px;
+    border:none;
+    background:linear-gradient(90deg,#2563eb,#4f46e5);
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.add-btn:hover{
+    opacity:0.9;
+}
+
+
+/* =========================
+   STUDENT LIST
+========================= */
+
+.export-btn{
+    border:none;
+    background:#eef4ff;
+    color:#2563eb;
+    padding:12px 16px;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.export-btn:hover{
+    background:#2563eb;
+    color:white;
+}
+
+.filters{
+    display:flex;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.search-box{
+    flex:1;
+    border:1px solid #dbe1ea;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+}
+
+.search-box i{
+    color:#94a3b8;
+}
+
+.search-box input{
+    width:100%;
+    padding:13px;
+    border:none;
+    outline:none;
+}
+
+.filters select{
+    border:1px solid #dbe1ea;
+    border-radius:9px;
+    padding:0 15px;
+    background:white;
+}
+
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #edf0f4;
+    font-size:13px;
+}
+
+th{
+    color:#64748b;
+    background:#f8fafc;
+}
+
+.action-btn{
+    border:none;
+    padding:8px 10px;
+    border-radius:7px;
+    cursor:pointer;
+    margin-right:5px;
+}
+
+.edit{
+    background:#e0e7ff;
+    color:#4338ca;
+}
+
+.delete{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.action-btn:hover{
+    transform:scale(1.05);
+}
+
+.empty-state{
+    text-align:center;
+    padding:50px;
+    color:#64748b;
+}
+
+.empty-state i{
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-content{
+    width:min(600px,92%);
+    background:white;
+    border-radius:16px;
+    padding:25px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.modal-header p{
+    color:#64748b;
+    margin-top:5px;
+}
+
+.close-btn{
+    border:none;
+    background:#f1f5f9;
+    width:38px;
+    height:38px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.modal-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.modal-form input,
+.modal-form select{
+    width:100%;
+    padding:12px;
+    border:1px solid #dbe1ea;
+    border-radius:8px;
+    outline:none;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+
+.cancel-btn,
+.save-btn{
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.cancel-btn{
+    background:#e5e7eb;
+}
+
+.save-btn{
+    background:#4f46e5;
+    color:white;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#111827;
+    color:white;
+    padding:14px 20px;
+    border-radius:10px;
+    display:none;
+    z-index:200;
+}
+
+.toast.show{
+    display:block;
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark{
+    background:#0f172a;
+    color:#e5e7eb;
+}
+
+body.dark .dashboard-card,
+body.dark .form-card,
+body.dark .student-section,
+body.dark .stat-card,
+body.dark .modal-content,
+body.dark .icon-btn{
+    background:#1e293b;
+    color:#e5e7eb;
+}
+
+body.dark .topbar p,
+body.dark .section-title p,
+body.dark .student-header p,
+body.dark .stat-card span,
+body.dark .stat-card small{
+    color:#94a3b8;
+}
+
+body.dark .input-box,
+body.dark .search-box,
+body.dark .filters select,
+body.dark .input-box input,
+body.dark .input-box select{
+    background:#1e293b;
+    color:white;
+}
+
+body.dark .input-box{
+    border-color:#475569;
+}
+
+body.dark .filters select{
+    border-color:#475569;
+}
+
+body.dark th{
+    background:#334155;
+    color:#cbd5e1;
+}
+
+body.dark td{
+    border-color:#334155;
+}
+
+body.dark .search-box{
+    border-color:#475569;
+}
+
+body.dark .search-box input{
+    background:#1e293b;
+    color:white;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:70px;
+        padding:20px 10px;
+    }
+
+    .logo-text,
+    .side-btn span,
+    .admin-box > div:not(.admin-avatar){
+        display:none;
+    }
+
+    .main{
+        margin-left:70px;
+        width:calc(100% - 70px);
+        padding:18px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid,
+    .modal-form{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .filters{
+        flex-direction:column;
+    }
+
+    .quick-actions{
+        flex-wrap:wrap;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+
+        <div class="logo-text">
+            <h2>EduManage</h2>
+            <span>Student Portal</span>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <button class="side-btn active"
+                onclick="goToSection('dashboard',this)">
+
+            <i class="fa-solid fa-chart-pie"></i>
+
+            <span>Dashboard</span>
+
+        </button>
+
+
+        <button class="side-btn"
+                onclick="goToSection('students',this)">
+
+            <i class="fa-solid fa-user-graduate"></i>
+
+            <span>Students</span>
+
+        </button>
+
+
+        <button class="side-btn"
+                onclick="goToSection('addStudent',this)">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            <span>Add Student</span>
+
+        </button>
+
+
+        <button class="side-btn"
+                onclick="showReports()">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>Reports</span>
+
+        </button>
+
+
+        <button class="side-btn"
+                onclick="showSettings()">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="admin-box">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div>
+                <strong id="adminName">
+                    Admin
+                </strong>
+
+                <small>
+                    Administrator
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard">
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+                Student Dashboard
+            </h1>
+
+            <p>
+                Manage your students easily and efficiently.
+            </p>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button class="icon-btn"
+                    onclick="toggleDarkMode()"
+                    title="Dark Mode">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+
+            <div class="profile">
+
+                <div class="profile-avatar">
+                    A
+                </div>
+
+                <div>
+
+                    <strong id="profileName">
+                        Admin
+                    </strong>
+
+                    <small>
+                        College Admin
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+
+                <span>Total Students</span>
+
+                <h2 id="totalStudents">
+                    0
+                </h2>
+
+                <small>
+                    Registered students
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+                <i class="fa-solid fa-building-columns"></i>
+            </div>
+
+            <div>
+
+                <span>Departments</span>
+
+                <h2 id="totalDepartments">
+                    0
+                </h2>
+
+                <small>
+                    Active departments
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+
+            <div>
+
+                <span>Final Year</span>
+
+                <h2 id="finalYear">
+                    0
+                </h2>
+
+                <small>
+                    Final year students
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon orange">
+                <i class="fa-solid fa-user-clock"></i>
+            </div>
+
+            <div>
+
+                <span>New Students</span>
+
+                <h2 id="newStudents">
+                    0
+                </h2>
+
+                <small>
+                    Recently added
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="dashboard-card">
+
+        <h2>
+            Quick Actions
+        </h2>
+
+        <div class="quick-actions">
+
+            <button onclick="openAddStudent()">
+                <i class="fa-solid fa-user-plus"></i>
+                Add Student
+            </button>
+
+            <button onclick="openStudents()">
+                <i class="fa-solid fa-users"></i>
+                View Students
+            </button>
+
+            <button onclick="showReports()">
+                <i class="fa-solid fa-chart-line"></i>
+                View Reports
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ADD STUDENT
+===================================================== -->
+
+<section class="form-card"
+         id="addStudent"
+         style="display:none;">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Add New Student
+            </h2>
+
+            <p>
+                Enter student information below
+            </p>
+
+        </div>
+
+        <div class="title-icon">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+        </div>
+
+    </div>
+
+
+    <form id="studentForm">
+
+        <div class="form-grid">
+
+
+            <div class="input-group">
+
+                <label>
+                    Student Name
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter student name"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="input-group">
+
+                <label>
+                    Register Number
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-id-card"></i>
+
+                    <input
+                        type="text"
+                        id="regno"
+                        placeholder="Enter register number"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="input-group">
+
+                <label>
+                    Department
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    <select id="department" required>
+
+                        <option value="">
+                            Select Department
+                        </option>
+
+                        <option>B.Com CA</option>
+                        <option>B.Com</option>
+                        <option>BBA</option>
+                        <option>BCA</option>
+                        <option>B.Sc CS</option>
+                        <option>B.Sc IT</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="input-group">
+
+                <label>
+                    Year
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-calendar"></i>
+
+                    <select id="year" required>
+
+                        <option value="">
+                            Select Year
+                        </option>
+
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="input-group full">
+
+                <label>
+                    Email Address
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="student@gmail.com"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="add-btn"
+                type="submit">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Student
+
+        </button>
+
+    </form>
+
+</section>
+
+
+
+<!-- =====================================================
+     STUDENTS
+===================================================== -->
+
+<section class="student-section"
+         id="students"
+         style="display:none;">
+
+    <div class="student-header">
+
+        <div>
+
+            <h2>
+                Student List
+            </h2>
+
+            <p>
+                View and manage all registered students
+            </p>
+
+        </div>
+
+
+        <button class="export-btn"
+                onclick="exportCSV()">
+
+            <i class="fa-solid fa-download"></i>
+
+            Export CSV
+
+        </button>
+
+    </div>
+
+
+
+    <div class="filters">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                id="search"
+                type="text"
+                placeholder="Search by name, register number or email..."
+            >
+
+        </div>
+
+
+        <select id="departmentFilter">
+
+            <option value="all">
+                All Departments
+            </option>
+
+            <option>B.Com CA</option>
+            <option>B.Com</option>
+            <option>BBA</option>
+            <option>BCA</option>
+            <option>B.Sc CS</option>
+            <option>B.Sc IT</option>
+
+        </select>
+
+
+        <select id="yearFilter">
+
+            <option value="all">
+                All Years
+            </option>
+
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+
+        </select>
+
+    </div>
+
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Student</th>
+                    <th>Register No</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th>Email</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="studentTable">
+            </tbody>
+
+        </table>
+
+
+        <div class="empty-state"
+             id="emptyState">
+
+            <i class="fa-solid fa-user-slash"></i>
+
+            <h3>
+                No Students Found
+            </h3>
+
+            <p>
+                Add a student to start managing your records.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+<!-- =====================================================
+     EDIT MODAL
+===================================================== -->
+
+<div class="modal"
+     id="editModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Update Student
+                </h2>
+
+                <p>
+                    Edit student information
+                </p>
+
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeModal()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <input type="hidden"
+               id="editId">
+
+
+        <div class="modal-form">
+
+            <div class="input-group">
+
+                <label>
+                    Student Name
+                </label>
+
+                <input id="editName"
+                       type="text">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Register Number
+                </label>
+
+                <input id="editRegno"
+                       type="text">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Department
+                </label>
+
+                <select id="editDepartment">
+
+                    <option>B.Com CA</option>
+                    <option>B.Com</option>
+                    <option>BBA</option>
+                    <option>BCA</option>
+                    <option>B.Sc CS</option>
+                    <option>B.Sc IT</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Year
+                </label>
+
+                <select id="editYear">
+
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group full">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input id="editEmail"
+                       type="email">
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button class="cancel-btn"
+                    onclick="closeModal()">
+
+                Cancel
+
+            </button>
+
+            <button class="save-btn"
+                    onclick="updateStudent()">
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- TOAST -->
+
+<div class="toast"
+     id="toast">
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+let students =
+    JSON.parse(
+        localStorage.getItem("edumanage_students")
+        || "[]"
+    );
+
+
+/* =========================
+   HELPER
+========================= */
+
+function $(id){
+
+    return document.getElementById(id);
+
+}
+
+
+/* =========================
+   SAVE DATA
+========================= */
+
+function saveData(){
+
+    localStorage.setItem(
+        "edumanage_students",
+        JSON.stringify(students)
+    );
+
+    renderStudents();
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message){
+
+    const toast = $("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function goToSection(sectionId,button){
+
+    document
+        .querySelectorAll(".main section");
+
+    const sections =
+        document.querySelectorAll(
+            ".main section"
+        );
+
+    sections.forEach(function(section){
+
+        section.style.display = "none";
+
+    });
+
+
+    $(sectionId).style.display = "block";
+
+
+    document
+        .querySelectorAll(".side-btn")
+        .forEach(function(btn){
+
+            btn.classList.remove("active");
+
+        });
+
+
+    if(button){
+
+        button.classList.add("active");
+
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+function openAddStudent(){
+
+    goToSection(
+        "addStudent",
+        document.querySelectorAll(".side-btn")[2]
+    );
+
+}
+
+
+function openStudents(){
+
+    goToSection(
+        "students",
+        document.querySelectorAll(".side-btn")[1]
+    );
+
+}
+
+
+/* =========================
+   ADD STUDENT
+========================= */
+
+$("studentForm").addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+
+        const name =
+            $("name").value.trim();
+
+        const regno =
+            $("regno").value.trim();
+
+        const department =
+            $("department").value;
+
+        const year =
+            $("year").value;
+
+        const email =
+            $("email").value.trim();
+
+
+        if(!name ||
+           !regno ||
+           !department ||
+           !year ||
+           !email){
+
+            showToast(
+                "Please fill all fields"
+            );
+
+            return;
+
+        }
+
+
+        const duplicate =
+            students.some(function(student){
+
+                return student.regno.toLowerCase()
+                    === regno.toLowerCase();
+
+            });
+
+
+        if(duplicate){
+
+            showToast(
+                "Register number already exists"
+            );
+
+            return;
+
+        }
+
+
+        const newStudent = {
+
+            id:Date.now(),
+
+            name:name,
+
+            regno:regno,
+
+            department:department,
+
+            year:year,
+
+            email:email,
+
+            createdAt:new Date().toISOString()
+
+        };
+
+
+        students.push(newStudent);
+
+        saveData();
+
+
+        $("studentForm").reset();
+
+
+        showToast(
+            "Student added successfully!"
+        );
+
+
+        openStudents();
+
+    }
+);
+
+
+/* =========================
+   RENDER STUDENTS
+========================= */
+
+function renderStudents(){
+
+    const search =
+        $("search").value
+        .toLowerCase()
+        .trim();
+
+
+    const department =
+        $("departmentFilter").value;
+
+
+    const year =
+        $("yearFilter").value;
+
+
+    const filtered =
+        students.filter(function(student){
+
+            const text =
+                (
+                    student.name +
+                    " " +
+                    student.regno +
+                    " " +
+                    student.email
+                ).toLowerCase();
+
+
+            const searchMatch =
+                text.includes(search);
+
+
+            const departmentMatch =
+                department === "all"
+                ||
+                student.department === department;
+
+
+            const yearMatch =
+                year === "all"
+                ||
+                student.year === year;
+
+
+            return (
+                searchMatch &&
+                departmentMatch &&
+                yearMatch
+            );
+
+        });
+
+
+    const table =
+        $("studentTable");
+
+
+    table.innerHTML = "";
+
+
+    filtered.forEach(function(student){
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                <strong>
+                    ${escapeHTML(student.name)}
+                </strong>
+            </td>
+
+            <td>
+                ${escapeHTML(student.regno)}
+            </td>
+
+            <td>
+                ${escapeHTML(student.department)}
+            </td>
+
+            <td>
+                ${escapeHTML(student.year)}
+            </td>
+
+            <td>
+                ${escapeHTML(student.email)}
+            </td>
+
+            <td>
+
+                <button
+                    class="action-btn edit"
+                    onclick="editStudent(${student.id})">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </button>
+
+
+                <button
+                    class="action-btn delete"
+                    onclick="deleteStudent(${student.id})">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+
+    if(filtered.length === 0){
+
+        $("emptyState").style.display =
+            "block";
+
+    }else{
+
+        $("emptyState").style.display =
+            "none";
+
+    }
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateDashboard(){
+
+    $("totalStudents").textContent =
+        students.length;
+
+
+    const departments =
+        new Set(
+            students.map(function(student){
+
+                return student.department;
+
+            })
+        );
+
+
+    $("totalDepartments").textContent =
+        departments.size;
+
+
+    $("finalYear").textContent =
+        students.filter(function(student){
+
+            return student.year === "3rd Year";
+
+        }).length;
+
+
+    const sevenDays =
+        Date.now()
+        -
+        (7 * 24 * 60 * 60 * 1000);
+
+
+    $("newStudents").textContent =
+        students.filter(function(student){
+
+            return (
+                new Date(student.createdAt).getTime()
+                >= sevenDays
+            );
+
+        }).length;
+
+}
+
+
+/* =========================
+   EDIT STUDENT
+========================= */
+
+function editStudent(id){
+
+    const student =
+        students.find(function(item){
+
+            return item.id === id;
+
+        });
+
+
+    if(!student){
+
+        return;
+
+    }
+
+
+    $("editId").value =
+        student.id;
+
+    $("editName").value =
+        student.name;
+
+    $("editRegno").value =
+        student.regno;
+
+    $("editDepartment").value =
+        student.department;
+
+    $("editYear").value =
+        student.year;
+
+    $("editEmail").value =
+        student.email;
+
+
+    $("editModal")
+        .classList.add("show");
+
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeModal(){
+
+    $("editModal")
+        .classList.remove("show");
+
+}
+
+
+/* =========================
+   UPDATE STUDENT
+========================= */
+
+function updateStudent(){
+
+    const id =
+        Number($("editId").value);
+
+
+    const student =
+        students.find(function(item){
+
+            return item.id === id;
+
+        });
+
+
+    if(!student){
+
+        return;
+
+    }
+
+
+    const newRegno =
+        $("editRegno")
+        .value
+        .trim();
+
+
+    const duplicate =
+        students.some(function(item){
+
+            return (
+                item.id !== id &&
+                item.regno.toLowerCase()
+                === newRegno.toLowerCase()
+            );
+
+        });
+
+
+    if(duplicate){
+
+        showToast(
+            "Register number already exists"
+        );
+
+        return;
+
+    }
+
+
+    student.name =
+        $("editName").value.trim();
+
+    student.regno =
+        newRegno;
+
+    student.department =
+        $("editDepartment").value;
+
+    student.year =
+        $("editYear").value;
+
+    student.email =
+        $("editEmail").value.trim();
+
+
+    saveData();
+
+    closeModal();
+
+
+    showToast(
+        "Student updated successfully!"
+    );
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+function deleteStudent(id){
+
+    const student =
+        students.find(function(item){
+
+            return item.id === id;
+
+        });
+
+
+    if(!student){
+
+        return;
+
+    }
+
+
+    const confirmation =
+        confirm(
+            "Are you sure you want to delete "
+            + student.name
+            + "?"
+        );
+
+
+    if(!confirmation){
+
+        return;
+
+    }
+
+
+    students =
+        students.filter(function(item){
+
+            return item.id !== id;
+
+        });
+
+
+    saveData();
+
+
+    showToast(
+        "Student deleted successfully!"
+    );
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+$("search").addEventListener(
+    "input",
+    renderStudents
+);
+
+
+$("departmentFilter").addEventListener(
+    "change",
+    renderStudents
+);
+
+
+$("yearFilter").addEventListener(
+    "change",
+    renderStudents
+);
+
+
+/* =========================
+   EXPORT CSV
+========================= */
+
+function exportCSV(){
+
+    if(students.length === 0){
+
+        showToast(
+            "No students available to export"
+        );
+
+        return;
+
+    }
+
+
+    const rows = [
+
+        [
+            "Student Name",
+            "Register Number",
+            "Department",
+            "Year",
+            "Email"
+        ]
+
+    ];
+
+
+    students.forEach(function(student){
+
+        rows.push([
+
+            student.name,
+            student.regno,
+            student.department,
+            student.year,
+            student.email
+
+        ]);
+
+    });
+
+
+    const csv =
+        rows.map(function(row){
+
+            return row.map(function(value){
+
+                return '"' +
+                    String(value)
+                    .replace(/"/g,'""')
+                    +
+                    '"';
+
+            }).join(",");
+
+        }).join("\n");
+
+
+    const blob =
+        new Blob(
+            [csv],
+            {type:"text/csv"}
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.download =
+        "EduManage_Students.csv";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+
+    URL.revokeObjectURL(url);
+
+
+    showToast(
+        "CSV exported successfully!"
+    );
+
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle(
+        "dark"
+    );
+
+
+    const isDark =
+        document.body.classList.contains(
+            "dark"
+        );
+
+
+    localStorage.setItem(
+        "edumanage_dark",
+        isDark
+    );
+
+}
+
+
+/* =========================
+   REPORTS
+========================= */
+
+function showReports(){
+
+    if(students.length === 0){
+
+        alert(
+            "STUDENT REPORT\n\n" +
+            "No students available."
+        );
+
+        return;
+
+    }
+
+
+    const departments = {};
+
+
+    students.forEach(function(student){
+
+        if(!departments[student.department]){
+
+            departments[student.department] = 0;
+
+        }
+
+        departments[student.department]++;
+
+    });
+
+
+    let report =
+        "EDUMANAGE STUDENT REPORT\n\n";
+
+
+    report +=
+        "Total Students : "
+        + students.length
+        + "\n";
+
+
+    report +=
+        "Departments : "
+        + Object.keys(departments).length
+        + "\n\n";
+
+
+    report +=
+        "DEPARTMENT-WISE COUNT\n";
+
+
+    Object.keys(departments)
+        .forEach(function(department){
+
+            report +=
+                department +
+                " : " +
+                departments[department] +
+                "\n";
+
+        });
+
+
+    alert(report);
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function showSettings(){
+
+    const currentName =
+        localStorage.getItem(
+            "edumanage_admin"
+        )
+        || "Admin";
+
+
+    const newName =
+        prompt(
+            "Enter Administrator Name:",
+            currentName
+        );
+
+
+    if(
+        newName !== null &&
+        newName.trim() !== ""
+    ){
+
+        const name =
+            newName.trim();
+
+
+        localStorage.setItem(
+            "edumanage_admin",
+            name
+        );
+
+
+        $("adminName")
+            .textContent = name;
+
+
+        $("profileName")
+            .textContent = name;
+
+
+        showToast(
+            "Settings updated!"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   CLOSE MODAL OUTSIDE
+========================= */
+
+$("editModal").addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            $("editModal")
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   LOAD SAVED SETTINGS
+========================= */
+
+if(
+    localStorage.getItem(
+        "edumanage_dark"
+    ) === "true"
+){
+
+    document.body.classList.add(
+        "dark"
+    );
+
+}
+
+
+const savedAdmin =
+    localStorage.getItem(
+        "edumanage_admin"
+    );
+
+
+if(savedAdmin){
+
+    $("adminName")
+        .textContent = savedAdmin;
+
+    $("profileName")
+        .textContent = savedAdmin;
+
+}
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
+
+renderStudents();
+
+</script>
+
+</body>
+</html>
